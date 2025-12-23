@@ -3,6 +3,7 @@ using System.Security.Cryptography;
 using System.Text;
 using API.Data;
 using API.Dtos;
+using API.DTOs;
 using API.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,7 @@ public class AccountController(AppDbContext context) : BaseApiController
     public async Task<ActionResult<AppUser>> Register(RegisterDto registerDto)
     {
         if (await EmailExists(registerDto.Email)) return BadRequest("email is taken");
-        
+
         using var hmac = new HMACSHA1();
 
         var user = new AppUser
@@ -28,6 +29,22 @@ public class AccountController(AppDbContext context) : BaseApiController
 
         context.Users.Add(user);
         await context.SaveChangesAsync();
+
+        return user;
+    }
+    [HttpPost("login")]
+    public async Task<ActionResult<AppUser>> Login(LoginDto loginDto)
+    {
+        var user = await context.Users.SingleOrDefaultAsync(x => x.Email == loginDto.Email);
+        if (user == null) return Unauthorized("Invalid Email Address");
+        using var hmac = new HMACSHA1(user.PasswordSalt);
+
+        var ComputeHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+        for (var i = 0; i < ComputeHash.Length; i++)
+        {
+            if (ComputeHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid Password");
+        }
 
         return user;
     }
