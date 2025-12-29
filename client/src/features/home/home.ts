@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
+import { single } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrl: './home.css'
 })
 export class Home {
+  protected registerMode = signal<boolean>(false);
+
+  showRegister () {
+    this.registerMode.set(true);
+  }
 
 }
