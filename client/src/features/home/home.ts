@@ -10,7 +10,6 @@ import { User } from '../../types/user';
   styleUrl: './home.css'
 })
 export class Home {
-  readonly membersFromApp = input.required<User[]>();
   protected registerMode = signal<boolean>(false);
 
   showRegister (value : boolean) {
