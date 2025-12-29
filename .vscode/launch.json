@@ -5,14 +5,16 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "C#: Launch Startup Project",
+            "name": "C#: <project-name> Debug",
             "type": "dotnet",
-            "request": "launch"
+            "request": "launch",
+            "projectPath": "${workspaceFolder}/API/<project-name>.csproj"
         },
         {
             "name": ".NET Core Attach",
             "type": "coreclr",
             "request": "attach"
         }
+
     ]
 }
