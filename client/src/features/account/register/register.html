@@ -8,7 +8,7 @@
                 <input type="password" class="input w-full" name="password" [(ngModel)]="creds.password"
                     placeholder="password">
                 <div class="flex items-center justify-end gap-3">
-                    <button class="btn"> cancel</button>
+                    <button (click)="cancel()" class="btn" type="button"> cancel</button>
                     <button class="btn btn-primary" type="submit">Register</button>
                 </div>
             </form>

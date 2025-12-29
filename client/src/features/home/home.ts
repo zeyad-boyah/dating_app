@@ -1,6 +1,7 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, input } from '@angular/core';
 import { single } from 'rxjs';
 import { Register } from '../account/register/register';
+import { User } from '../../types/user';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,11 @@ import { Register } from '../account/register/register';
   styleUrl: './home.css'
 })
 export class Home {
+  readonly membersFromApp = input.required<User[]>();
   protected registerMode = signal<boolean>(false);
 
-  showRegister () {
-    this.registerMode.set(true);
+  showRegister (value : boolean) {
+    this.registerMode.set(value);
   }
 
 }
