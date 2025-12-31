@@ -11,14 +11,16 @@
                         clip-rule="evenodd" />
                 </svg>
                 <h3 class="text-2xl font-semibold uppercase">
-                    Dating app
+                    Dating app ඞා ඞා 
                 </h3>
             </a>
         </div>
         <nav class="flex gap-3 my-2 uppercase text-lg text-white">
-            <a routerLink="members/" routerLinkActive="text-accent">matches</a>
-            <a routerLink="lists/" routerLinkActive="text-accent">lists</a>
-            <a routerLink="messages/" routerLinkActive="text-accent">messages</a>
+            @if (accountService.currentUser()){
+                <a routerLink="members/" routerLinkActive="text-accent">matches</a>
+                <a routerLink="lists/" routerLinkActive="text-accent">lists</a>
+                <a routerLink="messages/" routerLinkActive="text-accent">messages</a>
+            }
         </nav>
         <div class="flex align-middle ml-auto gap-3">
             @if (accountService.currentUser(); as user){
